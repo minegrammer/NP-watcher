@@ -1,0 +1,32 @@
+.container {
+    text-align: center;
+}
+
+.now{
+    font-size: 60px;
+    padding-top: 20px;
+}
+
+.m-1{
+    margin: 0px;
+    padding: 0px;
+}
+
+.number{
+    font-size:300px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nin{
+    font-size:40px;
+}
+
+.btn{
+    font-size: 80px;
+}
+
+.row{
+    margin: 50px;
+}
+

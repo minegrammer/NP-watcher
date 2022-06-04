@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <!-- Main Layout -->
+    <div id="app" class="m-3">
+        <mycomp/>
+    </div>
+
+    <!-- vue.jsの使用 -->
+    <!-- jinjaとの識別 -->
+    {% raw %}
+    <script type="text/x-template" id="mycomp-template">
+        <div>
+            <h1 class="now">現在の在室人数は</h1>
+            <div class="m-1">
+                <strong id="text" class="number">0</strong>
+                <span class="nin">人です</span>
+            </div>
+            <div>
+                <h2>COCOAのインストールをお願いします</h2>
+                <h2>入退室時に人数情報の更新をお願いします</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="button" v-on:click="in_room()">入室▲</button>
+                </div>
+                <div class="col-md-4">
+                    <p></p>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="button" v-on:click="out_room()">退出▼</button>
+                </div>
+            </div>
+        </div>
+    </script>
+    {% endraw %}
+
+    <script>
+    Vue.component('mycomp',{
+        template:'#mycomp-template',
+        data: function(){
+            return{
+                status: "",
+                num: 0,
+            };
+        },
+        methods:{
+                in_room: function(){
+                    this.num++;
+                    document.getElementById('text').innerHTML = this.num;
+                    axios.get('/ajax', {
+                        params:{
+                        status: 0
+                        }
+                    });
+                },
+                out_room: function(){
+                    if (this.num > 0){
+                        this.num--;
+                        document.getElementById('text').innerHTML = this.num;
+                        axios.get('/ajax', {
+                        params:{
+                        status: 1
+                        },
+                    });
+                    }
+                    else{
+                        alert("人数は0以下になりません")
+                    }
+                },
+        },
+    });
+
+    new Vue({
+        el:'#app',
+    })
+    </script>
+{% endblock %}
